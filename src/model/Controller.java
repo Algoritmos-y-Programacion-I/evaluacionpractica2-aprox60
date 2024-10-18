@@ -17,8 +17,18 @@ public class Controller {
      *         contrario
      */
     public boolean registerProjectInPillar(int pillarType, String id, String name, String description,boolean status) {
+        if (pillarType < 0 || pillarType >= pillars.length) {
+            return false; 
+        }
+        Project newProject = new Project(id, name, description, status);
+        Pillar pillar = pillars[pillarType];
+        if (pillar == null) {
+            return false; 
+        }
+        
+       
+        return pillar.registerProject(newProject); 
 
-        return false;
     }
 
     /**

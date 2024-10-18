@@ -2,6 +2,8 @@ package ui;
 
 import java.util.Scanner;
 import model.Controller;
+import model.Project;
+import model.Pillar;
 
 public class Executable {
 
@@ -64,9 +66,20 @@ public class Executable {
      * en un Pillar en el sistema
     */
     public void registerProject() {
-
+        System.out.println("Registra un nuevo proyecto con sus siguientes elementos: ");
+        System.out.println("Pilar al que hace parte");
+        int pillarType = reader.nextInt();
         reader.nextLine();
-
+        System.out.println("Identificador");
+        String id = reader.nextLine();
+        System.out.println("Nombre");
+        String name = reader.nextLine();
+        System.out.println("Descripción");
+        String description = reader.nextLine();
+        System.out.println("Estado: Activo O inactivo (true/false)");
+        Boolean status = reader.nextBoolean();
+        reader.nextLine();
+        control.registerProjectInPillar(pillarType, description, description, description, status);
     }
 
     /** 

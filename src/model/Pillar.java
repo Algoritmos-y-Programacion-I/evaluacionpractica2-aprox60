@@ -4,6 +4,7 @@ public class Pillar {
 
     private String name;
     private Project[] projects;
+   
 
     public Pillar(String name) {
         this.name = name;
@@ -21,8 +22,18 @@ public class Pillar {
      *         contrario
      */
     public boolean registerProject(Project newProject) {
-
+        if (newProject == null) {
+            return false; 
+        }
+        for (int i = 0; i < projects.length; i++) {
+            if (projects[i] == null) { 
+                projects[i] = newProject; 
+                return true; 
+            }
+        }
+    
         return false;
+ 
     }
 
     /**
