@@ -2,8 +2,7 @@ package ui;
 
 import java.util.Scanner;
 import model.Controller;
-import model.Project;
-import model.Pillar;
+
 
 public class Executable {
 
@@ -67,7 +66,7 @@ public class Executable {
     */
     public void registerProject() {
         System.out.println("Registra un nuevo proyecto con sus siguientes elementos: ");
-        System.out.println("Pilar al que hace parte");
+        System.out.println("Pilar al que hace parte ((0)Agua, (1)Energia, (2)Tratamiento de Basura, (3)Biodiversidad)");
         int pillarType = reader.nextInt();
         reader.nextLine();
         System.out.println("Identificador");
@@ -76,17 +75,26 @@ public class Executable {
         String name = reader.nextLine();
         System.out.println("Descripción");
         String description = reader.nextLine();
-        System.out.println("Estado: Activo O inactivo (true/false)");
+        System.out.println("Estado: Activo(true) O inactivo(false)");
         Boolean status = reader.nextBoolean();
         reader.nextLine();
-        control.registerProjectInPillar(pillarType, description, description, description, status);
+        boolean registered = control.registerProjectInPillar(pillarType, id, name, description, status);
+        if (registered) {
+            System.out.println("Proyecto registrado exitosamente.");
+        } else {
+            System.out.println("No se pudo registrar el proyecto.");
+        }
     }
 
     /** 
      * Descripcion: Muestra al usuario los Projects registrados en un Pillar 
     */
     public void showProjectsByPillar() {
-
+        System.out.println("Pilar a consultar (0)Agua, (1)Energia, (2)Tratamiento de Basura, (3)Biodiversidad");
+        int pillarType = reader.nextInt();
+        reader.nextLine();
+        String projectsList = control.queryProjectsByPillar(pillarType); 
+        System.out.println(projectsList);
     }
 
 }

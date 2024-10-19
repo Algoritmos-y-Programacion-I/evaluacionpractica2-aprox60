@@ -4,9 +4,14 @@ public class Controller {
 
     private Pillar[] pillars;
 
+
     public Controller() {
 
         pillars = new Pillar[4];
+        pillars[0] = new Pillar("Agua");
+        pillars[1] = new Pillar("Energía");
+        pillars[2] = new Pillar("Tratamiento de Basura");
+        pillars[3] = new Pillar("Biodiversidad");
 
     }
 
@@ -18,17 +23,21 @@ public class Controller {
      */
     public boolean registerProjectInPillar(int pillarType, String id, String name, String description,boolean status) {
         if (pillarType < 0 || pillarType >= pillars.length) {
+            System.out.println("Tipo de pilar no válido: " + pillarType);
             return false; 
         }
+
         Project newProject = new Project(id, name, description, status);
         Pillar pillar = pillars[pillarType];
-        if (pillar == null) {
-            return false; 
+    
+        boolean result = pillar.registerProject(newProject);
+        if (result) {
+            System.out.println("Proyecto registrado exitosamente: " + name);
+        } else {
+            System.out.println("Error al registrar el proyecto: " + name);
         }
-        
-       
-        return pillar.registerProject(newProject); 
-
+    
+        return result;
     }
 
     /**
@@ -41,9 +50,18 @@ public class Controller {
      */
     public String queryProjectsByPillar(int pillarType) {
 
-        String query = "";
-
+        if (pillarType < 0 || pillarType >= pillars.length) {
+            return "Tipo de pilar no válido.";
+        }
+        Pillar pillar = pillars[pillarType];
+        if (pillar == null) {
+            return "El pilar no está registrado.";
+        }
+        String query = pillar.getProjectList(); 
+    
         return query;
+
+       
 
     }
 
